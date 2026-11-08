@@ -3,3 +3,5 @@ snapshot_at,label,kind,count,uniques
 2026-11-08T18:30:24Z,baseline,views,2047,751
 2026-11-08T19:54:43Z,first,clones,1554,280
 2026-11-08T19:54:43Z,first,views,2047,751
+2026-11-08T21:56:59Z,manual,clones,1554,280
+2026-11-08T21:56:59Z,manual,views,2047,751
