@@ -1,0 +1,18 @@
+[tools]
+actionlint = "1.7.12"
+zizmor = "1.31.1"
+shellcheck = "0.11.0"
+
+[tasks.lint]
+description = "Lint the workflows and scripts, check the brand files, test the scripts and build the site"
+run = [
+  "actionlint",
+  "zizmor --offline .",
+  "shellcheck scripts/*.sh",
+  "scripts/sync-brand.sh --check",
+  "python3 -m unittest discover -s scripts",
+]
+
+[tasks.preview]
+description = "Build the site from data/ into /tmp/devvm-stats-site and serve it on http://127.0.0.1:8000/"
+run = "python3 -I scripts/build_site.py build /tmp/devvm-stats-site && python3 -m http.server -d /tmp/devvm-stats-site -b 127.0.0.1 8000"

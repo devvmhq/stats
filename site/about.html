@@ -1,0 +1,30 @@
+<p class="sub">GitHub keeps two kinds of numbers for devvm. This page says how each one is turned into what the other pages show, and what none of them can tell.</p>
+
+<h2>Where the numbers come from</h2>
+<p>Every day at 06:17 UTC, a workflow in the devvmhq/stats repo reads two things from GitHub. The first is each release's download count for each of its files, a running total since the release was published. The second is the devvm repo's traffic: views and clones by day, the top 10 referrers and the top 10 pages, which GitHub keeps for only 14 days. The workflow adds each day's numbers to CSV files in the repo, so the history grows past GitHub's 14 days, and then it builds this site from them. The first data point is a snapshot from 8 November 2026, taken by hand before devvm 0.1.1.</p>
+
+<h2>Telling installs from upgrades</h2>
+<p>A download count says only that a file was downloaded. Each way of installing devvm downloads a different set of a release's files, so comparing the files' counts gives an estimate of each way:</p>
+<ul>
+<li><strong>The install script</strong> (curl, then bash) downloads install.sh, the archive for the machine, SHA256SUMS and its signature, SHA256SUMS.minisig.</li>
+<li><strong>devvm upgrade</strong> downloads the archive, SHA256SUMS and the signature, but not install.sh.</li>
+<li><strong>Homebrew</strong> downloads only the archive.</li>
+</ul>
+<p>So for each release:</p>
+<ul>
+<li><strong>New installs</strong> are the install.sh downloads times the share of them that go on to install. That share is measured on devvm 0.1.0, the first release, which nobody could have upgraded to, so every signature download it had came from the install script.</li>
+<li><strong>Upgrades</strong> are the signature downloads, less the new installs. Only the install script and devvm upgrade download the signature, so the rest of them are devvm upgrade's.</li>
+<li><strong>Homebrew or manual</strong> is the archive downloads, less the SHA256SUMS downloads, because Homebrew is the one way that downloads an archive without SHA256SUMS. A brew install and a brew upgrade look the same, and so does someone downloading an archive in a browser.</li>
+</ul>
+<p>Known test downloads, when devvm's maintainer checks a release on test machines, are taken out of these numbers and listed on each release.</p>
+
+<h2>What these numbers can't tell</h2>
+<ul>
+<li>How many people use devvm. A download is one request, so a retry or a second install counts again, and someone who installed once and never upgraded downloads nothing more.</li>
+<li>Which version anyone is running. devvm sends nothing about itself to anyone. Its daily check for a new release asks GitHub where the latest release is, and GitHub counts nothing for that.</li>
+<li>Homebrew installs apart from Homebrew upgrades, or Homebrew's users by platform. Homebrew's own analytics cover only its core formulas, not devvm's tap.</li>
+<li>Exact traffic over long periods. GitHub's unique visitors are unique within its 14 days, so they can't be added up across weeks, and the referrers and pages are only each 14 days' top 10.</li>
+</ul>
+
+<h2>Privacy</h2>
+<p>Every number here is a total that GitHub already counts. None of them identifies a person: there are no IP addresses, no user names and nothing per user. A referrer that's a temporary or private host, such as a tunnel's, is shown only as a kind of host, not by its name. This site itself has no analytics, no cookies and no scripts, and its fonts and images are its own files, so your browser asks nothing of anyone else while you read it.</p>

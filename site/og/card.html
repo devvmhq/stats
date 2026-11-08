@@ -1,0 +1,25 @@
+<!doctype html>
+<!-- The social card, 1200 by 630, in devvm.dev's card's style. Rendered by hand when it changes, then
+     committed as site/og.png (scripts/og.sh, with Chrome). It isn't part of the site. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+  @font-face { font-family: "Departure Mono"; src: url("../brand/fonts/DepartureMono-Regular.woff2") format("woff2"); }
+  html, body { margin: 0; width: 1200px; height: 630px; background: #000000; overflow: hidden; }
+  body { display: flex; flex-direction: column; justify-content: center; padding: 0 96px; box-sizing: border-box;
+         font-family: "Departure Mono", monospace; color: #eeeeee; }
+  .logo { display: flex; align-items: flex-end; gap: 28px; }
+  .logo img { width: 250px; height: 86px; image-rendering: pixelated; }
+  .logo span { font-size: 66px; line-height: 1; color: #8f93a2; padding-bottom: 6px; }
+  h1 { font-weight: 400; font-size: 66px; line-height: 1.15; margin: 56px 0 20px; }
+  h1 em { font-style: normal; color: #7fff00; }
+  p { font-size: 33px; margin: 0; color: #8f93a2; }
+</style>
+</head>
+<body>
+  <div class="logo"><img src="../brand/devvm-logo-on-dark.svg" alt="devvm"><span>stats</span></div>
+  <h1>Who installs devvm,<br>and who <em>upgrades</em></h1>
+  <p>Release downloads and GitHub traffic, every day.</p>
+</body>
+</html>

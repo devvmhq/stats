@@ -1,0 +1,152 @@
+/* devvm.dev's palette (docs/assets/css/custom.css in devvmhq/devvm, at site/brand/SOURCES's commit):
+   black, one lime accent, dark only, as devvm.dev is. */
+:root {
+  --bg: #000000;
+  --surface: #0f111a;
+  --border: #20474b;
+  --text: #eeeeee;
+  --text-secondary: #8f93a2;
+  --muted: #666666;
+  --accent: #7fff00;
+  --accent-soft: #c3e88d;
+  /* The charts' series, in this order on every chart, checked against the black surface with the
+     dataviz skill's validator (lightness band, chroma, colour-blind and normal-vision separation,
+     3:1 contrast): a lime one step darker than the accent, so it sits in the band with the others. */
+  --s1: #56ad00;
+  --s2: #3987e5;
+  --s3: #d95926;
+  --grid: #1a1d27;
+  /* devvm.dev's fonts: Departure Mono for headings, numbers and charts, Instrument Sans for text. */
+  --pixel: "Departure Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+  color-scheme: dark;
+}
+
+/* Every font is this site's own file (brand/SOURCES), so the CSP's font-src 'self' covers them. */
+@font-face {
+  font-family: "Departure Mono";
+  src: url("fonts/DepartureMono-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Instrument Sans's variable fonts, at the weights devvm.dev asks Google Fonts for: 400 to 700,
+   roman and italic. A browser fetches the italic only for italic text. */
+@font-face {
+  font-family: "Instrument Sans";
+  src: url("fonts/InstrumentSans-Variable.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Instrument Sans";
+  src: url("fonts/InstrumentSans-Italic-Variable.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.6 var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { color: var(--accent-soft); text-decoration: underline; }
+
+header, main, footer, .banner { max-width: 60rem; margin: 0 auto; padding: 0 1.25rem; }
+
+header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.logo { display: flex; align-items: center; gap: 0.75rem; color: var(--text); }
+.logo img { image-rendering: pixelated; }
+.logo span { font: 22px var(--pixel); color: var(--text-secondary); }
+
+nav { display: flex; flex-wrap: wrap; gap: 1.5rem; font: 22px/1 var(--pixel); }
+nav a { color: var(--text-secondary); }
+nav a[aria-current="page"] { color: var(--accent); }
+
+/* Departure Mono in 11px steps, so its pixels stay whole. */
+h1, h2, h3 { font-family: var(--pixel); font-weight: 400; font-synthesis: none; letter-spacing: 0; }
+h1 { font-size: 44px; line-height: 1.2; margin: 2rem 0 1rem; }
+h2 { font-size: 33px; margin: 3rem 0 0.25rem; }
+h3 { font-size: 22px; margin: 2rem 0 0.5rem; color: var(--text-secondary); }
+.sub { color: var(--text-secondary); margin: 0 0 1rem; }
+.pre { font-size: 22px; color: var(--text-secondary); border: 1px solid var(--border); padding: 0 0.4rem; }
+
+.banner {
+  margin-top: 1rem;
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-family: var(--pixel);
+}
+
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 1rem; }
+.tile { background: var(--surface); border: 1px solid var(--border); padding: 1rem 1.25rem; }
+.tile-label { color: var(--text-secondary); font-size: 14px; }
+.tile-value { font: 44px/1.2 var(--pixel); color: var(--text); margin: 0.25rem 0; }
+.tile-note { color: var(--muted); font-size: 13px; }
+
+/* Charts: recessive grid and axes, 2px lines, dots with a ring in the surface colour, text in text
+   colours only (the series colour is on the mark beside it). */
+.chart { width: 100%; height: auto; display: block; margin: 0.5rem 0; }
+.chart text { font: 11px var(--pixel); }
+.chart .axis { fill: var(--text-secondary); }
+.chart .label { fill: var(--text); }
+.chart .grid { stroke: var(--grid); stroke-width: 1; }
+.chart .baseline { stroke: var(--muted); stroke-width: 1; }
+.chart .line { fill: none; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.chart .dot { stroke: var(--bg); stroke-width: 2; }
+.chart .hit { fill: transparent; }
+.chart .hit:hover { fill: rgba(238, 238, 238, 0.12); }
+.line.s1 { stroke: var(--s1); }
+.line.s2 { stroke: var(--s2); }
+.line.s3 { stroke: var(--s3); }
+.dot.s1, .bar.s1, .swatch.s1 { fill: var(--s1); background: var(--s1); }
+.dot.s2, .bar.s2, .swatch.s2 { fill: var(--s2); background: var(--s2); }
+.dot.s3, .bar.s3, .swatch.s3 { fill: var(--s3); background: var(--s3); }
+
+.legend { list-style: none; display: flex; flex-wrap: wrap; gap: 1.25rem; padding: 0; margin: 0.5rem 0; color: var(--text-secondary); font-size: 14px; }
+.swatch { display: inline-block; width: 12px; height: 12px; border-radius: 2px; margin-right: 0.4rem; vertical-align: -1px; }
+
+details { margin: 0.25rem 0 1rem; color: var(--text-secondary); }
+summary { cursor: pointer; font-size: 14px; }
+table { border-collapse: collapse; margin: 0.5rem 0; font-size: 14px; color: var(--text); }
+caption { text-align: left; color: var(--muted); padding-bottom: 0.25rem; }
+th, td { text-align: left; padding: 0.25rem 1rem 0.25rem 0; border-bottom: 1px solid var(--grid); }
+th { color: var(--text-secondary); font-weight: 500; }
+
+.empty, .notes { color: var(--text-secondary); }
+
+footer {
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  padding-bottom: 3rem;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 14px;
+}
+footer p { margin: 0.25rem 0; }
+
+@media (forced-colors: active) {
+  .line { stroke: CanvasText; }
+  .dot, .bar, .swatch { fill: CanvasText; }
+}

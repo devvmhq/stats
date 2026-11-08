@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Nothing but this site's own files: no scripts, no fonts or images from elsewhere, no frames, no forms. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; img-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="color-scheme" content="dark">
+<title>$title · devvm stats</title>
+<meta name="description" content="How many people install and upgrade devvm: release downloads and GitHub traffic, every day.">
+<meta property="og:title" content="devvm stats: $title">
+<meta property="og:description" content="Release downloads and GitHub traffic, every day.">
+<meta property="og:image" content="https://stats.devvm.dev/$og_image">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="$og_alt">
+<meta property="og:url" content="https://stats.devvm.dev/$path">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preload" href="fonts/DepartureMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/InstrumentSans-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <a class="logo" href="./"><img src="devvm-logo-on-dark.svg" width="125" height="43" alt="devvm"><span>stats</span></a>
+  <nav>$nav</nav>
+</header>
+$banner
+<main>
+<h1>$title</h1>
+$body
+</main>
+<footer>
+  <p>Updated $updated, once a day. The numbers are in the <a href="https://github.com/devvmhq/stats">devvmhq/stats</a> repo, as CSV.</p>
+  <p>This site has no analytics, no cookies and no scripts, and it loads nothing from anywhere else.</p>
+  <p><a href="https://devvm.dev/">devvm.dev</a> · <a href="https://github.com/devvmhq/devvm">GitHub</a></p>
+</footer>
+</body>
+</html>

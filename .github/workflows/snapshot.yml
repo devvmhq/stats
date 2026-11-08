@@ -1,0 +1,137 @@
+name: Snapshot
+
+# Once a day, and by hand (gh workflow run snapshot.yml --repo devvmhq/stats -f label=...):
+# devvm's release download counts and its 14 days of traffic, merged into data/*.csv with
+# REPORT.md, in one commit; then stats.devvm.dev is built from main and deployed to GitHub Pages.
+# A push to main that changes the site or its scripts deploys the site again without a snapshot.
+# It reads devvmhq/devvm and writes only this repo. No pull_request_target, ever: a fork's pull
+# request runs only lint.yml, with no secrets and a read-only token.
+on:
+  schedule:
+    - cron: "17 6 * * *"
+  workflow_dispatch:
+    inputs:
+      label:
+        description: What this snapshot is for, such as "release v0.1.1" or "before tests"
+        type: string
+        default: manual
+  push:
+    branches: [main]
+    paths: ["site/**", "scripts/build_site.py", "scripts/stats.py"]
+
+permissions: {}
+
+concurrency:
+  group: snapshot
+  cancel-in-progress: false
+
+jobs:
+  # Skipped, not failed, until the App's Client ID is set (README: Setting up), so the site still deploys.
+  snapshot:
+    if: github.event_name != 'push' && vars.STATS_APP_CLIENT_ID != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    # The App's key is this environment's secret, and the environment deploys only from main.
+    environment: stats
+    permissions:
+      contents: write
+      issues: write
+    env:
+      LABEL: ${{ github.event_name == 'schedule' && 'scheduled' || inputs.label }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: true # zizmor: ignore[artipacked] -- the commit is pushed with it, and nothing is uploaded
+      # A token for devvmhq/devvm alone, Administration: read (traffic needs it), for an hour.
+      - id: app
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          client-id: ${{ vars.STATS_APP_CLIENT_ID }}
+          private-key: ${{ secrets.STATS_APP_PRIVATE_KEY }}
+          owner: devvmhq
+          repositories: devvm
+          permission-administration: read
+      - name: Fetch
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token }}
+        run: |
+          set -euo pipefail
+          stamp=$(date -u +%Y-%m-%dT%H%M%SZ)
+          raw=$RUNNER_TEMP/raw
+          mkdir -p "$raw"
+          r=repos/devvmhq/devvm
+          gh api --paginate --slurp "$r/releases?per_page=100" > "$raw/releases-$stamp.json"
+          gh api "$r/traffic/views" > "$raw/views-$stamp.json"
+          gh api "$r/traffic/clones" > "$raw/clones-$stamp.json"
+          gh api "$r/traffic/popular/referrers" > "$raw/referrers-$stamp.json"
+          gh api "$r/traffic/popular/paths" > "$raw/paths-$stamp.json"
+      - name: Ingest and report
+        run: |
+          set -euo pipefail
+          python3 -I scripts/stats.py ingest "$RUNNER_TEMP/raw" --label "$LABEL"
+          python3 -I scripts/stats.py report > REPORT.md
+          cat REPORT.md >> "$GITHUB_STEP_SUMMARY"
+      - name: Commit
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data REPORT.md
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -q -m "snapshot $(date -u +%F) ($LABEL)"
+          git push origin HEAD:main
+      # One open issue while snapshots fail, closed by hand once fixed; GitHub's own email
+      # for a failed scheduled run goes to whoever last edited the cron line.
+      - name: Open or update the failure issue
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          title="Snapshots are failing"
+          number=$(gh issue list --state open --search "in:title \"$title\"" --json number,title \
+            --jq "map(select(.title == \"$title\")) | .[0].number // empty")
+          if [[ -n $number ]]; then
+            gh issue comment "$number" --body "Failed again: $RUN_URL"
+          else
+            gh issue create --title "$title" --body "The snapshot failed: $RUN_URL. A day's traffic is lost once it is 14 days old."
+          fi
+
+  # The site, built from main as the snapshot left it (or as the push made it). The build never
+  # sees a token: the checkout keeps none, and the job has only what Pages' upload needs.
+  build:
+    needs: snapshot
+    if: ${{ !cancelled() && (needs.snapshot.result == 'success' || needs.snapshot.result == 'skipped') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+          persist-credentials: false
+      - run: python3 -I scripts/build_site.py build "$RUNNER_TEMP/site"
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: ${{ runner.temp }}/site
+
+  deploy:
+    needs: build
+    if: ${{ !cancelled() && needs.build.result == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    permissions:
+      pages: write # to deploy the site
+      id-token: write # to prove the deployment comes from this workflow
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1

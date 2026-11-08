@@ -1,0 +1,16 @@
+# Monthly, one grouped pull request for the actions the workflows pin by SHA, as devvm does. A release
+# has a week to be found bad before an update proposes it.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    cooldown:
+      default-days: 7
+    commit-message:
+      prefix: ci
+      include: scope
+    groups:
+      actions:
+        patterns: ["*"]

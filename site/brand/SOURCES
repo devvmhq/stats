@@ -1,0 +1,21 @@
+# The site's brand files and fonts, each copied from its upstream GitHub repo at a pinned commit:
+#   SHA-256  local file  owner/repo  commit  path in that repo
+# scripts/sync-brand.sh REPO COMMIT fetches REPO's files again at COMMIT and rewrites their lines;
+# sync-brand.sh --check (in mise run lint) checks each file against its SHA-256.
+# Licences: devvm's logo, icons and card template are devvm's, MIT. Departure Mono (Helena Zhang) and
+# Instrument Sans (The Instrument Sans Project Authors) are under the SIL Open Font License 1.1, whose
+# text goes with each font as fonts/*-OFL.txt. Instrument Sans is upstream's variable woff2 (wdth and wght
+# axes), not subset: devvm.dev's body font, at the weights it uses (400 to 700, roman and italic).
+# og-template.png is devvm.dev's social card template (the logo, devvm.dev, the lime bar), which
+# scripts/card.py draws the stats card on; site/og/glyphs.txt is made from devvm's Departure Mono OTF at
+# the same commit (scripts/make-glyphs.sh), with that OTF's SHA-256 in its header.
+a540b65e54b83b42172128c54b90c2c7859e295893d32b9c9e080825c68c3557  apple-touch-icon.png  devvmhq/devvm  017cc90a4a625b5f53b22a0480b6a3e46b04951d  docs/static/apple-touch-icon.png
+e099e031be96483791a30f13dd9ece2b68e22eb2eacc7b34dada466b66447b2c  devvm-logo-on-dark.svg  devvmhq/devvm  017cc90a4a625b5f53b22a0480b6a3e46b04951d  docs/static/branding/devvm-logo-on-dark.svg
+89c95fd3e88f61463eb47da47500dd676ffc82ac7a3b67210a758afc5c84b786  favicon.ico  devvmhq/devvm  017cc90a4a625b5f53b22a0480b6a3e46b04951d  docs/static/favicon.ico
+ceb0729c0d8408c9fd0bc1df24717c81c2511210608c93c4382f51d234bf0215  favicon.svg  devvmhq/devvm  017cc90a4a625b5f53b22a0480b6a3e46b04951d  docs/static/favicon.svg
+3975cd095ba293d195266c063de8a971194f2ada2dd7e5272bcab9b4d53e7355  og-template.png  devvmhq/devvm  017cc90a4a625b5f53b22a0480b6a3e46b04951d  docs/assets/images/og-template.png
+5b4fed1daa90708aa9c6ee1190abca9dc22164a1c1def0020386e46b61038cfb  fonts/DepartureMono-Regular.woff2  devvmhq/devvm  017cc90a4a625b5f53b22a0480b6a3e46b04951d  docs/static/fonts/departure-mono/DepartureMono-Regular.woff2
+b65e42750f3cb65437a97f4dfd781c58f199259949db2341012be60e32500e83  fonts/DepartureMono-OFL.txt  devvmhq/devvm  017cc90a4a625b5f53b22a0480b6a3e46b04951d  docs/static/fonts/departure-mono/LICENSE
+aa72922aafcc0dc18f36ec1d805b0212057dabe8b9d5b8b57f67035aea1b826d  fonts/InstrumentSans-Variable.woff2  Instrument/instrument-sans  7fa22308a3d0c94ee2b3cd537a1196b65db34a3e  fonts/webfonts/InstrumentSans[wdth,wght].woff2
+e958f71ffb2d576dd6a9499bd9bb336ad060ab48e1920b2444d68919dee29ba5  fonts/InstrumentSans-Italic-Variable.woff2  Instrument/instrument-sans  7fa22308a3d0c94ee2b3cd537a1196b65db34a3e  fonts/webfonts/InstrumentSans-Italic[wdth,wght].woff2
+9e27a72ed30eb49a08678f6a5d6ed98ec7ba5368f541637ee0683ec9134ef966  fonts/InstrumentSans-OFL.txt  Instrument/instrument-sans  7fa22308a3d0c94ee2b3cd537a1196b65db34a3e  OFL.txt
