@@ -1,19 +1,19 @@
 # devvm adoption
 
-Latest snapshot: 2026-11-09 18:47 UTC. install.sh completion rate: 0.83 (from v0.1.0).
+Latest snapshot: 2026-11-09 22:55 UTC. install.sh completion rate: 0.83 (from v0.1.0).
 
 | release | published | archives | install.sh | upgrades (devvm upgrade) | brew or manual | platforms |
 | --- | --- | --- | --- | --- | --- | --- |
-| v0.1.1-rc.2 (pre) | 2026-11-09 | 0 | 0 | 0 | 0 | darwin/amd64 0, darwin/arm64 0, linux/amd64 0, linux/arm64 0 |
+| v0.1.1-rc.2 (pre) | 2026-11-09 | 6 | 1 | 0 | 4 | darwin/amd64 1, darwin/arm64 2, linux/amd64 2, linux/arm64 1 |
 | v0.1.1-rc.1 (pre) | 2026-11-07 | 1 | 0 | 0 | 0 | darwin/amd64 2, darwin/arm64 5, linux/amd64 2, linux/arm64 2 |
-| v0.1.0 | 2026-11-06 | 321 | 163 | 0 | 177 | darwin/amd64 8, darwin/arm64 170, linux/amd64 135, linux/arm64 8 |
+| v0.1.0 | 2026-11-06 | 334 | 171 | 0 | 183 | darwin/amd64 9, darwin/arm64 175, linux/amd64 142, linux/arm64 8 |
 
 ## v0.1.0: its first 14 days
 
 | day | archives | install.sh | minisig | upgrades (cumulative) |
 | --- | --- | --- | --- | --- |
 | 3 | 315 | 159 | 132 | 0 |
-| 4 | 321 | 163 | 135 | 0 |
+| 4 | 334 | 171 | 142 | 0 |
 
 ## Traffic by week
 
