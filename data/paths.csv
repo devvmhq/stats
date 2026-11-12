@@ -39,3 +39,13 @@ snapshot_date,path,title,count,uniques
 2026-11-11,/devvmhq/devvm/pulls,/pulls,151,56
 2026-11-11,/devvmhq/devvm/tree/main,/tree/main,48,38
 2026-11-11,/devvmhq/devvm/tree/main/internal,/tree/main/internal,49,43
+2026-11-12,/devvmhq/devvm,Overview,2182,1505
+2026-11-12,/devvmhq/devvm/blob/main/AGENTS.md,/blob/main/AGENTS.md,26,25
+2026-11-12,/devvmhq/devvm/blob/main/CHANGELOG.md,/blob/main/CHANGELOG.md,47,37
+2026-11-12,/devvmhq/devvm/blob/main/LICENSE,/blob/main/LICENSE,26,25
+2026-11-12,/devvmhq/devvm/commits,/commits,38,21
+2026-11-12,/devvmhq/devvm/commits/main,/commits/main,226,41
+2026-11-12,/devvmhq/devvm/issues,/issues,339,124
+2026-11-12,/devvmhq/devvm/pulls,/pulls,151,56
+2026-11-12,/devvmhq/devvm/tree/main,/tree/main,48,38
+2026-11-12,/devvmhq/devvm/tree/main/internal,/tree/main/internal,49,43
