@@ -25,3 +25,5 @@ snapshot_at,label,kind,count,uniques
 2026-11-12T15:17:35Z,scheduled,views,4664,1753
 2026-11-13T14:36:39Z,scheduled,clones,3988,669
 2026-11-13T14:36:39Z,scheduled,views,5122,1871
+2026-11-13T18:46:36Z,manual,clones,3988,669
+2026-11-13T18:46:36Z,manual,views,5122,1871
