@@ -179,3 +179,13 @@ snapshot_date,path,title,count,uniques
 2026-11-25,/devvmhq/devvm/releases/tag/v0.2.0-rc.1,/releases/tag/v0.2.0-rc.1,36,34
 2026-11-25,/devvmhq/devvm/tree/main,/tree/main,41,33
 2026-11-25,/devvmhq/devvm/tree/main/internal,/tree/main/internal,28,25
+2026-11-26,/devvmhq/devvm,Overview,1964,1225
+2026-11-26,/devvmhq/devvm/blob/main/CHANGELOG.md,/blob/main/CHANGELOG.md,54,49
+2026-11-26,/devvmhq/devvm/commits,/commits,41,12
+2026-11-26,/devvmhq/devvm/commits/main,/commits/main,112,24
+2026-11-26,/devvmhq/devvm/issues,/issues,226,101
+2026-11-26,/devvmhq/devvm/pulls,/pulls,65,32
+2026-11-26,/devvmhq/devvm/releases,/releases,26,21
+2026-11-26,/devvmhq/devvm/releases/tag/v0.2.0-rc.1,/releases/tag/v0.2.0-rc.1,38,35
+2026-11-26,/devvmhq/devvm/tree/main,/tree/main,36,32
+2026-11-26,/devvmhq/devvm/tree/main/internal,/tree/main/internal,26,23
